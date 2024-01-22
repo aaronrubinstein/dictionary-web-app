@@ -1,0 +1,63 @@
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+*{
+	margin: 0;
+	padding: 0;
+	font: inherit;
+}
+:root {
+	font-size: 16px;
+}
+button {
+	border: none;
+	background: none;
+	cursor: pointer;
+}
+img, picture, svg, video{
+	max-width: 100%;
+	height: auto;
+	vertical-align: middle;
+}
+
+body[data-theme="light"] {
+    --text-primary: #2D2D2D;
+    --text-secondary: #757575;
+    --divider: #E9E9E9;
+    --vertical-divider: #E9E9E9;
+    --input-bg: #F4F4F4;
+    --page-bg: #FFFFFF;
+    --moon-icon: #757575;
+    --dropdown-shadow: rgba(0, 0, 0, 0.10);
+}
+
+body[data-theme="dark"] {
+    --text-primary: #FFFFFF;
+    --text-secondary: #757575;
+    --divider: #3A3A3A;
+    --vertical-divider: #E9E9E9;
+    --input-bg: #1F1F1F;
+    --page-bg: #050505;
+    --moon-icon: #A445ED;
+    --dropdown-shadow: #A445ED;
+}
+
+body[data-font="sans-serif"] {
+    font-family: 'Inter', sans-serif;
+}
+
+body[data-font="serif"] {
+    font-family: 'Lora', serif;
+}
+
+body[data-font="mono"] {
+    font-family: 'Inconsolata', monospace;
+}
+
+body {	
+    --purple: #A445ED;
+    --red: #FF5252;
+
+	/* min-height: 100dvh; */
+	background-color: var(--page-bg);
+}
