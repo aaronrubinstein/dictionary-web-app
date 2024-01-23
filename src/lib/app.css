@@ -29,6 +29,8 @@ body[data-theme="light"] {
     --page-bg: #FFFFFF;
     --moon-icon: #757575;
     --dropdown-shadow: rgba(0, 0, 0, 0.10);
+    --dropdown-bg: #FFFFFF;
+    --toggle-bg: #757575;
 }
 
 body[data-theme="dark"] {
@@ -40,6 +42,8 @@ body[data-theme="dark"] {
     --page-bg: #050505;
     --moon-icon: #A445ED;
     --dropdown-shadow: #A445ED;
+    --dropdown-bg: #1F1F1F;
+    --toggle-bg: #A445ED;
 }
 
 body[data-font="sans-serif"] {
