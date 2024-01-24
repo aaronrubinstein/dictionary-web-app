@@ -1,7 +1,16 @@
+<script>
+    import { enhance } from '$app/forms';
+    
+    export let data;
 
-<form action="GET">
-    <input type="text" placeholder="Search for any word…">
+    $: definition = data.definition;
+</script>
+
+<form method="POST" use:enhance>
+    <input name="define" type="text" placeholder="Search for any word…" aria-label="Search">
 </form>
+
+<pre>{JSON.stringify(definition, null, 4)}</pre>
 
 <style>
     input {
