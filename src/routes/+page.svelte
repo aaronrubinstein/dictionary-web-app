@@ -1,17 +1,18 @@
 <script>
-    
-    export let data;
-    // export let form;
-    // console.log(form);
 
-    let definition = data.definition;
+    export let data;
+    export let form;
+    console.log(form);
+
+    let def = data.definition[0];
+
 </script>
 
 <form method="POST">
     <input name="word" type="text" placeholder="Search for any word…" aria-label="Search">
 </form>
 
-<pre>{JSON.stringify(definition, null, 4)}</pre>
+
 
 <style>
     input {
