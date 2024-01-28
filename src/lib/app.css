@@ -31,6 +31,7 @@ body[data-theme="light"] {
     --dropdown-shadow: rgba(0, 0, 0, 0.10);
     --dropdown-bg: #FFFFFF;
     --toggle-bg: #757575;
+    --play-btn-bg: rgba(164, 69, 237, 0.25);
 }
 
 body[data-theme="dark"] {
@@ -44,6 +45,7 @@ body[data-theme="dark"] {
     --dropdown-shadow: #A445ED;
     --dropdown-bg: #1F1F1F;
     --toggle-bg: #A445ED;
+    --play-btn-bg: rgba(164, 69, 237, 0.25);
 }
 
 body[data-font="sans-serif"] {

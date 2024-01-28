@@ -20,7 +20,6 @@
         background-repeat: no-repeat;
         background-origin: border-box;
         background-position: right 24px center;
-        margin-bottom: 45px;
     }
 
     input::placeholder {
