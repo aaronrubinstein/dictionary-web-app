@@ -1,5 +1,6 @@
 <script>
     import SearchInput from '$lib/components/SearchInput.svelte';
+    import { sound } from 'svelte-sound';
     import { getPhonetic, getAudio } from '$lib/utils/parsingHelpers.js';
 
     let promise = [];
@@ -21,6 +22,11 @@
         e.currentTarget.value = '';
     }
 
+    function defineSynonym(word) {
+        const encoded = encodeURIComponent(word);
+        promise = getDefinitions(encoded);
+    }
+
 </script>
 
 <SearchInput on:keydown={handleInput} />
@@ -28,17 +34,30 @@
 {#await promise}
     <p>Loading...</p>
 {:then data}
-    <p>{data.length}</p>
-    {#each data as word}
+    
+    {#each data as word, index}
 
         <div class="header">
             <div class="word-and-phonetic">
-                <h1>{word.word}</h1>
-                <p class="phonetic">{getPhonetic(word)}</p>
+                <h1>
+                    {word.word}
+                    {#if data.length > 1}
+                        <sup>{index + 1}</sup>
+                    {/if}
+                </h1>
+                {#if getPhonetic(word)}
+                    <p class="phonetic">{getPhonetic(word)}</p>
+                {/if}
             </div>
-            <button class="play-btn" type="button" aria-label="Play audio">
-                <div class="play-icon"></div>
-            </button>
+            {#if getAudio(word)}
+                <button 
+                    use:sound={{ src: getAudio(word), events: ['click'] }}
+                    class="play-btn" 
+                    type="button" 
+                    aria-label="Play audio" >
+                    <div class="play-icon"></div>
+                </button>
+            {/if}
         </div>
 
         {#each word.meanings as meaning}
@@ -63,31 +82,36 @@
                     <h3>Synonyms</h3>
                     <div class="synonym-words">
                         {#each meaning.synonyms as synonym}
-                            <button type="button" class="synonym-btn">{synonym}</button>
+                            <button 
+                                type="button" 
+                                class="synonym-btn"
+                                on:click={() => defineSynonym(synonym)} >
+                                {synonym}
+                            </button>
                         {/each}
                     </div>
                 </div>
             {/if}
         {/each}
 
-        <div class="source-container">
-            <p class="source-label">Source</p>
-            <div class="source-links">
-                {#each word.sourceUrls as url}
-                    <div class="link">
-                        <a href={url}>{url}</a>
-                        <img 
-                            src="$lib/assets/icon-new-window.svg" 
-                            alt="Link opens in new window"
-                            target="_blank" >
-                    </div>
-                {/each}
+        <!-- only display source below the last word -->
+        {#if index === data.length - 1}
+            <div class="source-container">
+                <p class="source-label">Source</p>
+                <div class="source-links">
+                    {#each word.sourceUrls as url}
+                        <div class="link">
+                            <a href={url} target="_blank">{url}</a>
+                            <img 
+                                src="$lib/assets/icon-new-window.svg" 
+                                alt="Link opens in new window" >
+                        </div>
+                    {/each}
+                </div>
             </div>
-        </div>
+        {/if}
 
     {/each}
-
-    <!-- <p>{data[0].sourceUrls[0]}</p> -->
 
 {:catch error}
     <p>{error.message}</p>
@@ -99,7 +123,10 @@
         font-size: 64px;
         font-weight: 700;
         color: var(--text-primary);
-        margin-top: 45px;
+    }
+
+    sup {
+        font-size: 24px;
     }
 
     h2 {
@@ -119,6 +146,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        margin-top: 45px;
     }
 
     .word-and-phonetic {
