@@ -9,7 +9,7 @@ export function getPhonetic(def) {
 	}
 }
 
-export function getAudio(def) {
+export function getAudioSrc(def) {
 
 	for (const item of def.phonetics) {
 		if (item.audio.endsWith('us.mp3') || item.audio.endsWith('us.ogg')) {

@@ -1,7 +1,7 @@
 <script>
     import SearchInput from '$lib/components/SearchInput.svelte';
-    import { sound } from 'svelte-sound';
-    import { getPhonetic, getAudio } from '$lib/utils/parsingHelpers.js';
+    import PlayAudio from '$lib/components/PlayAudio.svelte';
+    import { getPhonetic, getAudioSrc } from '$lib/utils/parsingHelpers.js';
 
     let promise = [];
 
@@ -9,8 +9,8 @@
         const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
         
         if (!response.ok) {
-            const message = `An error has occured: ${response.status}`
-            throw new Error(message);
+            // const message = `An error has occured: ${response.status}`;
+            throw new Error(response.status);
         }
         
         return response.json();
@@ -49,14 +49,8 @@
                     <p class="phonetic">{getPhonetic(word)}</p>
                 {/if}
             </div>
-            {#if getAudio(word)}
-                <button 
-                    use:sound={{ src: getAudio(word), events: ['click'] }}
-                    class="play-btn" 
-                    type="button" 
-                    aria-label="Play audio" >
-                    <div class="play-icon"></div>
-                </button>
+            {#if getAudioSrc(word)}
+                <PlayAudio src={getAudioSrc(word)} />
             {/if}
         </div>
 
@@ -114,7 +108,17 @@
     {/each}
 
 {:catch error}
-    <p>{error.message}</p>
+    <div class="error-container">
+        {#if error.message === '404'}
+            <p class="error-emoji">😕</p>
+            <h4 class="error-heading">No Definitions Found</h4>
+            <p class="error-description">We couldn't find any definitions for the word you were looking for. You can try the search again or head to the web instead.</p>
+        {:else}
+            <p class="error-emoji">😵</p>
+            <h4 class="error-heading">Oops... something went wrong</h4>
+            <p class="error-description">There was a problem contacting the server. Check your internet connection or try again later.</p>
+        {/if}
+    </div>
 {/await}
 
 <style>
@@ -161,33 +165,6 @@
         font-weight: 400;
         line-height: normal;
         color: var(--purple);
-    }
-
-    button.play-btn {
-        width: 75px;
-        height: 75px;
-        border-radius: 50%;
-        background-color: var(--play-btn-bg);
-        display: grid;
-        place-items: center;
-        transition: background-color 200ms;
-    }
-
-    button.play-btn:hover {
-        background-color: var(--purple);
-    }
-
-    .play-icon {
-        width: 0;
-        height: 0;
-        border-top: 10.5px solid transparent;
-        border-left: 21px solid var(--purple);
-        border-bottom: 10.5px solid transparent;
-        transition: border-left 200ms;
-    }
-
-    button.play-btn:hover .play-icon {
-        border-left: 21px solid #FFFFFF;
     }
 
     .part-of-speech {
@@ -297,6 +274,28 @@
         color: var(--text-primary);
     }
 
+    .error-container {
+        text-align: center;
+        margin-top: 132px;
+    }
+
+    .error-emoji {
+       font-size: 64px; 
+       margin-bottom: 44px;
+    }
+
+    .error-heading {
+       font-size: 20px;
+       font-weight: 700; 
+       color: var(--text-primary);
+       margin-bottom: 24px;
+    }
+
+    .error-description {
+        font-size: 18px;
+        font-weight: 400;
+        color: var(--text-secondary);
+    }
 
 
 </style>
