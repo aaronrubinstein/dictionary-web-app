@@ -40,4 +40,21 @@
     button:hover .play-icon {
         border-left: 21px solid #FFFFFF;
     }
+
+    @media (max-width: 650px) {
+        button {
+            width: 48px;
+            height: 48px;
+        }
+
+        .play-icon {
+            border-top: 6.5px solid transparent;
+            border-left: 13px solid var(--purple);
+            border-bottom: 6.5px solid transparent;
+        }
+
+        button:hover .play-icon {
+            border-left: 13px solid #FFFFFF;
+        } 
+    }
 </style>

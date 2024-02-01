@@ -46,4 +46,14 @@
     svg {
         color: var(--moon-icon);
     }
+
+    @media (max-width: 650px) {
+        .container {
+            padding: 0 24px;
+        }
+
+        header {
+            margin: 24px 0;
+        }
+    }
 </style>

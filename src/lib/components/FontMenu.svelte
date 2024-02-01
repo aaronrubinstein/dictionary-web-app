@@ -60,6 +60,7 @@
       border-radius: 16px;
       padding: 24px;
       background: var(--dropdown-bg);
+      z-index: 99;
       box-shadow: 0px 5px 30px 0px var(--dropdown-shadow);
       display: flex;
       flex-direction: column;
@@ -81,6 +82,26 @@
 
    .menu-item.mono {
       font-family: 'Inconsolata', monospace;
+   }
+
+   @media (max-width: 650px) {
+      .container {
+         height: 24px;
+         padding-right: 16px;
+         margin-right: 16px;
+      }
+      
+      button {
+         gap: 18px;
+         font-size: 16px;
+      }
+
+      .menu {
+         top: 40px;
+         right: 26px;
+         width: 160px;
+         height: 148px;
+      }
    }
 
 </style>

@@ -25,4 +25,13 @@
     input::placeholder {
         opacity: 0.35;
     }
+
+    @media (max-width: 650px) {
+        input {
+            height: 48px;
+            padding: 0 24px 0 24px;
+            font-size: 16px;
+            background-position: right 17px center;
+        }
+    }
 </style>

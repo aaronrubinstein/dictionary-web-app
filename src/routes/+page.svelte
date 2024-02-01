@@ -298,4 +298,101 @@
     }
 
 
+    @media (max-width: 650px) {
+        h1 {
+            font-size: 32px;
+        }
+
+        sup {
+            font-size: 18px;
+        }
+
+        h2 {
+            font-size: 18px;
+        }
+
+        h3 {
+            font-size: 16px;
+        }
+        
+        .header {
+            margin-top: 32px;
+        }
+
+        .phonetic {
+            font-size: 18px;;
+        }
+
+        .part-of-speech {
+            margin: 31px 0;
+        }
+
+        .divider {
+            margin-left: 16px;
+        }
+
+        .meaning {
+            margin-bottom: 17px;
+        }
+
+        ul {
+            padding-left: 26px;
+        }
+
+        li {
+            font-size: 15px;
+        }
+
+        li::before {
+            font-size: 15px;
+            width: 26px;
+            margin-left: -26px;
+        }
+        
+        p.example {
+            font-size: 15px;
+        }
+
+        .synonyms-container {
+            gap: 22px;
+            margin-top: 24px;
+        }
+
+        .synonym-words {
+            gap: 10px;
+        }
+
+        button.synonym-btn {
+            font-size: 16px;
+        }
+
+        .source-container {
+            margin-top: 32px;
+            margin-bottom: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-top: 24px;
+        }
+
+        .error-container {
+            text-align: center;
+            margin-top: 64px;
+        }
+
+        .error-emoji {
+            font-size: 48px; 
+            margin-bottom: 32px;
+        }
+
+        .error-heading {
+            font-size: 16px;
+            margin-bottom: 18px;
+        }
+
+        .error-description {
+            font-size: 14px;
+        }
+    }
+
 </style>
