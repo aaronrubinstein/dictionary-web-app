@@ -1,21 +1,41 @@
 <script>
+   import { browser } from '$app/environment';
    import { clickOutside } from '$lib/utils/clickOutside.js';
    
+
+   let currentFont = (browser && localStorage.getItem('font')) || 'sans-serif';
+
    let menuOpen = false;
+
+   const setFont = font => {
+      localStorage.setItem('font', font);
+      document.body.setAttribute('data-font', font);
+      currentFont = font;
+   }
+
+   const fontNames = {
+      'sans-serif': 'Sans Serif',
+      'serif': 'Serif',
+      'mono': 'Mono'
+   }
+
 
 </script>
 
 <div class="container">
    <button type="button" on:click={() => menuOpen = !menuOpen} id="menu-toggle-btn">
-      Sans Serif
+      {fontNames[currentFont]}
       <img class:menuOpen src="$lib/assets/icon-arrow-down.svg" alt="Arrow icon">
    </button>
 
    {#if menuOpen}
       <div class="menu" use:clickOutside on:outclick={() => menuOpen = false}>
-         <button type="button" class="menu-item sans">Sans Serif</button>
-         <button type="button" class="menu-item serif">Serif</button>
-         <button type="button" class="menu-item mono">Mono</button>
+         <button type="button" class="menu-item sans" 
+            on:click={() => setFont('sans-serif')} >Sans Serif</button>
+         <button type="button" class="menu-item serif"
+            on:click={() => setFont('serif')} >Serif</button>
+         <button type="button" class="menu-item mono"
+            on:click={() => setFont('mono')} >Mono</button>
       </div>
    {/if}
 </div>

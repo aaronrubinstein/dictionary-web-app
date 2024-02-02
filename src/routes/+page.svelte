@@ -4,6 +4,9 @@
     import { getPhonetic, getAudioSrc } from '$lib/utils/parsingHelpers.js';
 
     let promise = [];
+    let invalid = false;
+    
+    const wait = () => new Promise(res => setTimeout(res, 1000));
 
     async function getDefinitions(word) {
         const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
@@ -17,7 +20,14 @@
     }
 
     function handleInput(e) {
-        if (e.key !== 'Enter') return;
+        if (e.key !== 'Enter') {
+            if (e.currentTarget.value === '') invalid = false;
+            return;
+        }
+        if (e.currentTarget.value === '') {
+            invalid = true;
+            return;
+        }
         promise = getDefinitions(e.currentTarget.value);
         e.currentTarget.value = '';
     }
@@ -29,10 +39,15 @@
 
 </script>
 
-<SearchInput on:keydown={handleInput} />
+<SearchInput on:keydown={handleInput} {invalid} />
 
 {#await promise}
-    <p>Loading...</p>
+    <!-- show loading message if no data in 1 second -->
+    {#await wait() then waiting}
+        <div class="loading-container">
+            <h3>Loading...</h3>
+        </div>
+    {/await}
 {:then data}
     
     {#each data as word, index}
@@ -295,6 +310,12 @@
         font-size: 18px;
         font-weight: 400;
         color: var(--text-secondary);
+    }
+
+    .loading-container {
+        display: grid;
+        place-items: center;
+        height: 200px;
     }
 
 
