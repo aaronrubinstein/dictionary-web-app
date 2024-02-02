@@ -5,7 +5,7 @@ This is a solution to the [Dictionary web app challenge on Frontend Mentor](http
 ### Links
 
 - Solution URL: https://github.com/aaronrubinstein/dictionary-web-app
-- Live Site URL: 
+- Live Site URL: https://dictionary-web-app-nine-lemon.vercel.app/
 
 ### Screenshots
 
